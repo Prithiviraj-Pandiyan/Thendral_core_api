@@ -1,0 +1,34 @@
+# Core API
+fastapi
+uvicorn[standard]
+pydantic
+
+# Machine Learning
+scikit-learn
+numpy
+pandas
+
+# Data visualization (useful for ML experiments)
+matplotlib
+
+# Jupyter notebooks for experiments
+jupyter
+
+# LLM frameworks
+langchain
+langgraph
+
+# Token handling for LLMs
+tiktoken
+
+# Vector database for RAG
+chromadb
+
+# Embedding models
+sentence-transformers
+
+# Database connector
+psycopg2-binary
+
+# Environment variables
+python-dotenv
