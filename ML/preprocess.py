@@ -1,8 +1,8 @@
 import re
-from typing import List, Iterable
+from typing import Iterable, List
 
 class TextPreprocessor:
-     """
+    """
     Common reusable text preprocessing class for Thendral.
     This file should remain model-agnostic so it can be reused for:
     - Logistic Regression
@@ -23,7 +23,7 @@ class TextPreprocessor:
 
         text = str(text)
 
-        if text.lowercase:
+        if self.lowercase:
             text = text.lower()
 
         # Remove urls
@@ -40,12 +40,9 @@ class TextPreprocessor:
 
         return text
 
-    def transform(self, texts: Iterable[List]) -> List[str]:
+    def transform(self, texts: Iterable[str]) -> List[str]:
         """
         Clean multiple text records.
         """
-        return (self.clean_text(text) for text in texts)
-        
-
-
+        return [self.clean_text(text) for text in texts]
 
