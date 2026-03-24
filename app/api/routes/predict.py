@@ -1,7 +1,14 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
+from ML.inference import SpamInferenceService
 
 router = APIRouter()
+inference_service = SpamInferenceService()
 
-@router.get("/")
-def predict_endpoint():
-    return {"Thendral core API Prediction will be coming soon"}
+class Predictionrequest(BaseModel):
+    text : str
+
+@router.post("/")
+def predict_endpoint(request:Predictionrequest):
+    result = inference_service.predict(request.text)
+    return result
