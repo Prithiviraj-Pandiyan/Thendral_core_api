@@ -1,0 +1,43 @@
+{
+  "run_id": "a7a9456c04c243bd96a714a3f5e4b8d2",
+  "dataset_id": "37c525c6536d4b4f8a5ebf5f259c97c0",
+  "created_at": "2026-03-25T21:16:06.992670+00:00",
+  "metrics": {
+    "dataset_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\processed\\37c525c6536d4b4f8a5ebf5f259c97c0.csv",
+    "row_count": 365446,
+    "accuracy": 0.9761663702284854,
+    "macro_f1": 0.9759979793620368,
+    "weighted_f1": 0.9761549828030184,
+    "classification_report": {
+      "0": {
+        "precision": 0.9800462782101752,
+        "recall": 0.9680033243299397,
+        "f1-score": 0.9739875761557759,
+        "support": 33691.0
+      },
+      "1": {
+        "precision": 0.9729234169743551,
+        "recall": 0.9831467803751365,
+        "f1-score": 0.9780083825682977,
+        "support": 39399.0
+      },
+      "accuracy": 0.9761663702284854,
+      "macro avg": {
+        "precision": 0.9764848475922652,
+        "recall": 0.9755750523525382,
+        "f1-score": 0.9759979793620368,
+        "support": 73090.0
+      },
+      "weighted avg": {
+        "precision": 0.9762067158920733,
+        "recall": 0.9761663702284854,
+        "f1-score": 0.9761549828030184,
+        "support": 73090.0
+      }
+    },
+    "model_key": "logistic_regression",
+    "task_key": "spam_detection",
+    "model_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\spam_detection\\logistic_regression\\model.joblib",
+    "vectorizer_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\spam_detection\\logistic_regression\\vectorizer.joblib"
+  }
+}
