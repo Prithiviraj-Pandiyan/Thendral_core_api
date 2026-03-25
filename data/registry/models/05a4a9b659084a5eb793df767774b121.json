@@ -1,0 +1,14 @@
+{
+  "run_id": "05a4a9b659084a5eb793df767774b121",
+  "dataset_id": "04015d34996b45bab867214c692de8da",
+  "created_at": "2026-03-25T11:11:21.281845+00:00",
+  "metrics": {
+    "dataset_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\processed\\04015d34996b45bab867214c692de8da.csv",
+    "row_count": 21839,
+    "accuracy": 0.9803113553113553,
+    "classification_report": "              precision    recall  f1-score   support\n\n           0       0.99      0.99      0.99      3408\n           1       0.96      0.95      0.96       960\n\n    accuracy                           0.98      4368\n   macro avg       0.97      0.97      0.97      4368\nweighted avg       0.98      0.98      0.98      4368\n",
+    "model_key": "logistic_regression",
+    "model_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\logistic_regression_model.joblib",
+    "vectorizer_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\vectorizer.joblib"
+  }
+}

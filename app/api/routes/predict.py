@@ -5,10 +5,12 @@ from ML.inference import SpamInferenceService
 router = APIRouter()
 inference_service = SpamInferenceService()
 
-class Predictionrequest(BaseModel):
-    text : str
+
+class PredictionRequest(BaseModel):
+    text: str
+
 
 @router.post("/")
-def predict_endpoint(request:Predictionrequest):
+def predict_endpoint(request: PredictionRequest):
     result = inference_service.predict(request.text)
     return result

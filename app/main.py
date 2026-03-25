@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 # Importing routers 
-from app.api.routes import health, version, predict
+from app.api.routes import health, version, predict, datasets
 
 
 def create_app() -> FastAPI:
@@ -15,6 +15,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/health", tags=["Health"])
     app.include_router(version.router, prefix="/version", tags=["Version"])
     app.include_router(predict.router, prefix="/predict", tags=["Prediction"])
+    app.include_router(datasets.router, prefix="/datasets", tags=["Datasets"])
 
     return app
 

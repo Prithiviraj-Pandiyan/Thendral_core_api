@@ -1,1 +1,1 @@
-from . import health, version, predict
+from . import health, version, predict, datasets

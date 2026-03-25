@@ -1,7 +1,8 @@
 import joblib
 import pandas as pd
+from pathlib import Path
+from typing import Optional
 
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
@@ -17,16 +18,23 @@ from ML.config import (
     RAW_DATA_DIR,
     VECTORIZER_PATH,
 )
+from ML.models.model_factory import create_text_model
 
 from ML.preprocess import TextPreprocessor
 
 
 def train_model(
-    file_name: str,
+    dataset_path: str,
     text_column: str = DEFAULT_TEXT_COLUMN,
     label_column: str = DEFAULT_LABEL_COLUMN,
-) -> None:
-    data_path = RAW_DATA_DIR / file_name
+    model_key: Optional[str] = None,
+) -> dict:
+    if not model_key:
+        raise ValueError("model_key is required")
+    data_path = Path(dataset_path)
+
+    if not data_path.is_absolute():
+        data_path = RAW_DATA_DIR/data_path
     print(f"[1/8] Starting training with dataset: {data_path}")
 
     if not data_path.exists():
@@ -67,16 +75,18 @@ def train_model(
     X_test_vectorized = vectorizer.transform(X_test)
     print(f"Vectorization completed with vocabulary size: {len(vectorizer.vocabulary_)}")
 
-    print("[7/8] Training Logistic Regression model...")
-    model = LogisticRegression(max_iter=1000, random_state=DEFAULT_RANDOM_STATE)
+    print("[7/8] Building and training model...")
+    model_impl = create_text_model(model_key=model_key, random_state=DEFAULT_RANDOM_STATE)
+    model = model_impl.build()
     model.fit(X_train_vectorized, y_train)
-    print("Model training completed.")
+    print(f"Model training completed using: {model_impl.key}")
 
     print("[8/8] Evaluating model performance...")
     predictions = model.predict(X_test_vectorized)
 
     accuracy = accuracy_score(y_test, predictions)
-    report = classification_report(y_test, predictions)
+    report_text = classification_report(y_test, predictions)
+    report_dict = classification_report(y_test, predictions, output_dict=True)
 
     print("Saving model artifacts...")
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -85,14 +95,26 @@ def train_model(
     print(f"Saved vectorizer to: {VECTORIZER_PATH}")
     print(f"Saved model to: {MODEL_PATH}")
 
+    metrics = {
+        "dataset_path" : str(data_path),
+        "row_count" : len(df),
+        "accuracy" : float(accuracy),
+        "macro_f1" : float(report_dict["macro avg"]["f1-score"]),
+        "weighted_f1" : float(report_dict["weighted avg"]["f1-score"]),
+        "classification_report" : report_dict,
+        "model_key" : model_key,
+        "model_path" : str(MODEL_PATH),
+        "vectorizer_path" : str(VECTORIZER_PATH),
+    }
+
     print(f"Training completed using dataset: {data_path.name}")
     print(f"Accuracy: {accuracy:.4f}")
     print("Classification report:")
-    print(report)
+    print(report_text)
+
+    return metrics
 
 if __name__ == "__main__":
-    train_model("sample_message.csv")
+    train_model("spam_training_v2.csv", model_key="logistic_regression")
 
     
-
-

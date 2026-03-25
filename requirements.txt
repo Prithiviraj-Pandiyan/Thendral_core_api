@@ -7,9 +7,16 @@ pydantic
 scikit-learn
 numpy
 pandas
+datasets
 
 # Data visualization (useful for ML experiments)
 matplotlib
+
+# python
+python-multipart
+
+# File Readers
+openpyxl
 
 # Jupyter notebooks for experiments
 jupyter

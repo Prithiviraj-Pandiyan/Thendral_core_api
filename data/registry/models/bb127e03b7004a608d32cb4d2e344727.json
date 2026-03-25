@@ -1,0 +1,42 @@
+{
+  "run_id": "bb127e03b7004a608d32cb4d2e344727",
+  "dataset_id": "c607d693398d4674a0262b7c32427a55",
+  "created_at": "2026-03-25T11:41:59.466188+00:00",
+  "metrics": {
+    "dataset_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\processed\\c607d693398d4674a0262b7c32427a55.csv",
+    "row_count": 21839,
+    "accuracy": 0.9803113553113553,
+    "macro_f1": 0.9712091706848092,
+    "weighted_f1": 0.9802817065014968,
+    "classification_report": {
+      "0": {
+        "precision": 0.9862412177985949,
+        "recall": 0.988556338028169,
+        "f1-score": 0.9873974208675264,
+        "support": 3408.0
+      },
+      "1": {
+        "precision": 0.9590336134453782,
+        "recall": 0.9510416666666667,
+        "f1-score": 0.9550209205020921,
+        "support": 960.0
+      },
+      "accuracy": 0.9803113553113553,
+      "macro avg": {
+        "precision": 0.9726374156219866,
+        "recall": 0.9697990023474179,
+        "f1-score": 0.9712091706848092,
+        "support": 4368.0
+      },
+      "weighted avg": {
+        "precision": 0.9802615245341517,
+        "recall": 0.9803113553113553,
+        "f1-score": 0.9802817065014968,
+        "support": 4368.0
+      }
+    },
+    "model_key": "logistic_regression",
+    "model_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\logistic_regression_model.joblib",
+    "vectorizer_path": "D:\\Thendral\\thendral_core_api\\ML\\artifacts\\vectorizer.joblib"
+  }
+}

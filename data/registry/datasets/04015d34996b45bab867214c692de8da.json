@@ -1,0 +1,9 @@
+{
+  "dataset_id": "04015d34996b45bab867214c692de8da",
+  "original_file_name": "spam_training_v2.csv",
+  "raw_file_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\raw\\faa1dd42b2314e4fb1bc132d320493dd_spam_training_v2.csv",
+  "processed_file_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\processed\\04015d34996b45bab867214c692de8da.csv",
+  "row_count": 21839,
+  "created_at": "2026-03-25T11:07:29.634623+00:00",
+  "status": "ready_for_training"
+}
