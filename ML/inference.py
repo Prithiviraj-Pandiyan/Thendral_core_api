@@ -2,6 +2,7 @@ import joblib
 from pathlib import Path
 
 from ML.config import ARTIFACTS_DIR, MODEL_PATH, VECTORIZER_PATH
+from ML.core.model_profiles import get_profile
 from ML.preprocess import TextPreprocessor
 
 
@@ -9,6 +10,8 @@ class SpamInferenceService:
     def __init__(self) -> None:
         print("[1/5] Initializing inference service...")
         self.preprocessor = TextPreprocessor()
+        self.spam_profile = get_profile("spam_detection", "logistic_regression")
+        self.spam_threshold = self.spam_profile.spam_threshold or 0.5
 
         self.spam_vectorizer_path, self.spam_model_path = self._resolve_spam_artifacts()
         self.ham_vectorizer_path = (
@@ -47,7 +50,7 @@ class SpamInferenceService:
         spam_label = self.spam_model.predict(spam_vector)[0]
         spam_probabilities = self.spam_model.predict_proba(spam_vector)[0]
         spam_confidence = float(max(spam_probabilities))
-        is_spam = self._is_spam_label(spam_label)
+        is_spam = self._is_spam_label(spam_label) and spam_confidence >= self.spam_threshold
 
         if is_spam:
             return {

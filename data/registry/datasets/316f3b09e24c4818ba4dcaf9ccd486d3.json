@@ -1,0 +1,9 @@
+{
+  "dataset_id": "316f3b09e24c4818ba4dcaf9ccd486d3",
+  "original_file_name": "ham_intent_v2_28k.csv",
+  "raw_file_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\raw\\257f244007474bb3af5bc67d7ecdcc3a_ham_intent_v2_28k.csv",
+  "processed_file_path": "D:\\Thendral\\thendral_core_api\\data\\uploads\\processed\\316f3b09e24c4818ba4dcaf9ccd486d3.csv",
+  "row_count": 28000,
+  "created_at": "2026-03-27T17:06:38.145210+00:00",
+  "status": "ready_for_training"
+}

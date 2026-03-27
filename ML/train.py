@@ -6,11 +6,11 @@ from typing import Optional
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
+from ML.core.model_profiles import get_profile
 from ML.core.tasks import TaskKey
 
 from ML.config import (
     ARTIFACTS_DIR,
-    DEFAULT_MAX_FEATURES,
     DEFAULT_RANDOM_STATE,
     DEFAULT_TEST_SIZE,
     DEFAULT_TEXT_COLUMN,
@@ -57,6 +57,7 @@ def train_model(
     if not model_key :
         raise ValueError(f"model_key not found")
 
+    profile = get_profile(task_key, model_key)
     effective_label_column = label_column or _resolve_label_column(task_key)
     vectorizer_path, model_path = _resolve_artifacts_paths(task_key, model_key)
 
@@ -90,13 +91,21 @@ def train_model(
     print(f"Test samples: {len(X_test)}")
 
     print("[6/8] Converting text into TF-IDF vectors...")
-    vectorizer = TfidfVectorizer(max_features=DEFAULT_MAX_FEATURES, ngram_range=(1, 2))
+    vectorizer = TfidfVectorizer(
+        max_features=profile.max_features,
+        ngram_range=(profile.ngram_min, profile.ngram_max),
+    )
     X_train_vectorized = vectorizer.fit_transform(X_train)
     X_test_vectorized = vectorizer.transform(X_test)
     print(f"Vectorization completed with vocabulary size: {len(vectorizer.vocabulary_)}")
 
     print("[7/8] Building and training model...")
-    model_impl = create_text_model(model_key=model_key, random_state=DEFAULT_RANDOM_STATE)
+    model_impl = create_text_model(
+        model_key=model_key,
+        random_state=DEFAULT_RANDOM_STATE,
+        C=profile.C,
+        class_weight=profile.class_weight,
+    )
     model = model_impl.build()
     model.fit(X_train_vectorized, y_train)
     print(f"Model training completed using: {model_impl.key}")
@@ -126,6 +135,13 @@ def train_model(
         "task_key" : task_key,
         "model_path" : str(model_path),
         "vectorizer_path" : str(vectorizer_path),
+        "training_profile": {
+            "max_features": profile.max_features,
+            "ngram_range": [profile.ngram_min, profile.ngram_max],
+            "class_weight": profile.class_weight,
+            "C": profile.C,
+            "spam_threshold": profile.spam_threshold,
+        },
     }
 
     print(f"Training completed using dataset: {data_path.name}")
