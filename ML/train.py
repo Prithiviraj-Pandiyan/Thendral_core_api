@@ -18,7 +18,7 @@ from ML.config import (
 )
 from ML.models.model_factory import create_text_model
 
-from ML.preprocess import TextPreprocessor
+from ML.preprocessors import get_preprocessor
 
 def _resolve_label_column(task_key:str)->str:
     if task_key ==TaskKey.SPAM_DETECTION.value:
@@ -75,7 +75,7 @@ def train_model(
     print(f"Rows remaining after cleanup: {len(df)}")
 
     print("[4/8] Preprocessing text data...")
-    preprocessor = TextPreprocessor()
+    preprocessor = get_preprocessor(task_key=task_key, input_type="text_email")
     cleaned_texts = preprocessor.transform(df[text_column])
     print("Text preprocessing completed.")
 

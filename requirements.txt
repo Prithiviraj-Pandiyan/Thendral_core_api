@@ -17,6 +17,8 @@ python-multipart
 
 # File Readers
 openpyxl
+beautifulsoup4
+lxml
 
 # Jupyter notebooks for experiments
 jupyter
